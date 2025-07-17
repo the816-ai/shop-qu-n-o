@@ -243,9 +243,165 @@
             color: white;
         }
 
+        .category-item.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-5px);
+        }
+
         .category-item h3 {
             font-size: 1.3em;
             margin-bottom: 10px;
+        }
+
+        /* Category Products Modal */
+        .category-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .category-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .close-btn:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .modal-product-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .modal-product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-product-info {
+            padding: 15px;
+        }
+
+        .modal-product-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .modal-product-price {
+            font-size: 1.2em;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .modal-product-desc {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .modal-product-btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-product-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
         /* Contact */
@@ -370,27 +526,27 @@
         <section class="categories" id="categories">
             <h2>Danh mục sản phẩm</h2>
             <div class="category-grid">
-                <div class="category-item">
+                <div class="category-item" data-category="ao-so-mi">
                     <h3>Áo sơ mi</h3>
                     <p>Thanh lịch, chuyên nghiệp</p>
                 </div>
-                <div class="category-item">
+                <div class="category-item" data-category="vay-dam">
                     <h3>Váy đầm</h3>
                     <p>Nữ tính, quyến rũ</p>
                 </div>
-                <div class="category-item">
+                <div class="category-item" data-category="ao-khoac">
                     <h3>Áo khoác</h3>
                     <p>Thời trang, ấm áp</p>
                 </div>
-                <div class="category-item">
+                <div class="category-item" data-category="quan-au">
                     <h3>Quần âu</h3>
                     <p>Lịch sự, thoải mái</p>
                 </div>
-                <div class="category-item">
+                <div class="category-item" data-category="do-mac-nha">
                     <h3>Đồ mặc nhà</h3>
                     <p>Thoải mái, tiện dụng</p>
                 </div>
-                <div class="category-item">
+                <div class="category-item" data-category="phu-kien">
                     <h3>Phụ kiện</h3>
                     <p>Hoàn thiện phong cách</p>
                 </div>
@@ -499,7 +655,181 @@
         </section>
     </div>
 
+    <!-- Category Modal -->
+    <div class="category-modal" id="categoryModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Danh mục sản phẩm</h2>
+                <p id="modalSubtitle">Chọn sản phẩm yêu thích của bạn</p>
+            </div>
+            <div class="modal-products" id="modalProducts">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Product data for each category
+        const categoryProducts = {
+            'ao-so-mi': [
+                {
+                    title: 'Áo sơ mi trắng Basic',
+                    price: '450.000đ',
+                    desc: 'Áo sơ mi trắng cơ bản, chất liệu cotton cao cấp',
+                    image: '🌟 Áo sơ mi trắng tinh khôi'
+                },
+                {
+                    title: 'Áo sơ mi xanh navy',
+                    price: '480.000đ',
+                    desc: 'Áo sơ mi xanh navy thanh lịch, phù hợp công sở',
+                    image: '💙 Áo sơ mi xanh navy'
+                },
+                {
+                    title: 'Áo sơ mi kẻ sọc',
+                    price: '520.000đ',
+                    desc: 'Áo sơ mi kẻ sọc năng động, phong cách trẻ trung',
+                    image: '📏 Áo sơ mi kẻ sọc'
+                },
+                {
+                    title: 'Áo sơ mi hồng pastel',
+                    price: '490.000đ',
+                    desc: 'Áo sơ mi màu hồng nhẹ nhàng, nữ tính',
+                    image: '🌸 Áo sơ mi hồng pastel'
+                }
+            ],
+            'vay-dam': [
+                {
+                    title: 'Váy đầm hoa nhí',
+                    price: '680.000đ',
+                    desc: 'Váy đầm họa tiết hoa nhí dễ thương, thiết kế A-line',
+                    image: '🌼 Váy đầm hoa nhí'
+                },
+                {
+                    title: 'Váy đầm đen thanh lịch',
+                    price: '750.000đ',
+                    desc: 'Váy đầm đen cơ bản, phù hợp mọi dịp',
+                    image: '🖤 Váy đầm đen thanh lịch'
+                },
+                {
+                    title: 'Váy đầm maxi',
+                    price: '850.000đ',
+                    desc: 'Váy đầm dài quyến rũ, thích hợp dự tiệc',
+                    image: '👗 Váy đầm maxi'
+                },
+                {
+                    title: 'Váy đầm công sở',
+                    price: '620.000đ',
+                    desc: 'Váy đầm công sở lịch sự, form dáng chuẩn',
+                    image: '💼 Váy đầm công sở'
+                }
+            ],
+            'ao-khoac': [
+                {
+                    title: 'Áo khoác cardigan',
+                    price: '520.000đ',
+                    desc: 'Áo khoác cardigan mỏng nhẹ, chất liệu cotton pha',
+                    image: '🧥 Áo khoác cardigan'
+                },
+                {
+                    title: 'Áo blazer',
+                    price: '890.000đ',
+                    desc: 'Áo blazer chuyên nghiệp, phù hợp môi trường công sở',
+                    image: '👔 Áo blazer chuyên nghiệp'
+                },
+                {
+                    title: 'Áo khoác denim',
+                    price: '650.000đ',
+                    desc: 'Áo khoác jean cá tính, phong cách năng động',
+                    image: '👖 Áo khoác denim'
+                },
+                {
+                    title: 'Áo khoác len',
+                    price: '720.000đ',
+                    desc: 'Áo khoác len ấm áp, phù hợp mùa lạnh',
+                    image: '🧶 Áo khoác len ấm'
+                }
+            ],
+            'quan-au': [
+                {
+                    title: 'Quần âu đen cơ bản',
+                    price: '420.000đ',
+                    desc: 'Quần âu đen ống đứng, chất liệu polyester cao cấp',
+                    image: '⚫ Quần âu đen cơ bản'
+                },
+                {
+                    title: 'Quần âu xám',
+                    price: '450.000đ',
+                    desc: 'Quần âu xám thanh lịch, dễ phối đồ',
+                    image: '🔘 Quần âu xám thanh lịch'
+                },
+                {
+                    title: 'Quần âu kẻ',
+                    price: '520.000đ',
+                    desc: 'Quần âu họa tiết kẻ sọc, phong cách hiện đại',
+                    image: '📐 Quần âu kẻ sọc'
+                },
+                {
+                    title: 'Quần âu ống rộng',
+                    price: '480.000đ',
+                    desc: 'Quần âu ống rộng thoải mái, xu hướng thời trang',
+                    image: '👖 Quần âu ống rộng'
+                }
+            ],
+            'do-mac-nha': [
+                {
+                    title: 'Bộ đồ mặc nhà cotton',
+                    price: '350.000đ',
+                    desc: 'Bộ đồ mặc nhà cotton mềm mại, thoải mái',
+                    image: '🏠 Bộ đồ mặc nhà cotton'
+                },
+                {
+                    title: 'Áo thun oversized',
+                    price: '220.000đ',
+                    desc: 'Áo thun oversized thoải mái, phù hợp ở nhà',
+                    image: '👕 Áo thun oversized'
+                },
+                {
+                    title: 'Bộ pyjama lụa',
+                    price: '450.000đ',
+                    desc: 'Bộ pyjama lụa mềm mượt, sang trọng',
+                    image: '✨ Bộ pyjama lụa'
+                },
+                {
+                    title: 'Quần short cotton',
+                    price: '180.000đ',
+                    desc: 'Quần short cotton thoáng mát, mặc nhà thoải mái',
+                    image: '🩳 Quần short cotton'
+                }
+            ],
+            'phu-kien': [
+                {
+                    title: 'Túi xách da',
+                    price: '680.000đ',
+                    desc: 'Túi xách da cao cấp, thiết kế sang trọng',
+                    image: '👜 Túi xách da cao cấp'
+                },
+                {
+                    title: 'Khăn choàng lụa',
+                    price: '320.000đ',
+                    desc: 'Khăn choàng lụa mềm mại, họa tiết tinh tế',
+                    image: '🧣 Khăn choàng lụa'
+                },
+                {
+                    title: 'Dây nịt da',
+                    price: '250.000đ',
+                    desc: 'Dây nịt da thật, khóa kim loại bền đẹp',
+                    image: '👢 Dây nịt da thật'
+                },
+                {
+                    title: 'Mũ fedora',
+                    price: '380.000đ',
+                    desc: 'Mũ fedora thời trang, phụ kiện hoàn hảo',
+                    image: '🎩 Mũ fedora thời trang'
+                }
+            ]
+        };
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -522,13 +852,76 @@
             });
         });
 
-        // Category items interaction
+        // Category items interaction with modal
         document.querySelectorAll('.category-item').forEach(item => {
             item.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
                 const categoryName = this.querySelector('h3').textContent;
-                alert(`Bạn đã chọn danh mục: ${categoryName}\n\nChúng tôi sẽ sớm cập nhật thêm sản phẩm cho danh mục này!`);
+                
+                // Update modal title
+                document.getElementById('modalTitle').textContent = categoryName;
+                document.getElementById('modalSubtitle').textContent = `Khám phá bộ sưu tập ${categoryName.toLowerCase()} đa dạng`;
+                
+                // Load products for this category
+                loadCategoryProducts(category);
+                
+                // Show modal
+                document.getElementById('categoryModal').classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
             });
         });
+
+        // Close modal functionality
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('categoryModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // ESC key to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        function closeModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        function loadCategoryProducts(category) {
+            const products = categoryProducts[category] || [];
+            const modalProducts = document.getElementById('modalProducts');
+            
+            modalProducts.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'modal-product-card';
+                productCard.innerHTML = `
+                    <div class="modal-product-image">
+                        <span>${product.image}</span>
+                    </div>
+                    <div class="modal-product-info">
+                        <div class="modal-product-title">${product.title}</div>
+                        <div class="modal-product-price">${product.price}</div>
+                        <div class="modal-product-desc">${product.desc}</div>
+                        <button class="modal-product-btn">Đặt hàng ngay</button>
+                    </div>
+                `;
+                
+                // Add click event for order button
+                const orderBtn = productCard.querySelector('.modal-product-btn');
+                orderBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    alert(`Cảm ơn bạn đã quan tâm đến "${product.title}"!\n\nGiá: ${product.price}\n\nVui lòng liên hệ qua Facebook hoặc Instagram để đặt hàng.`);
+                });
+                
+                modalProducts.appendChild(productCard);
+            });
+        }
 
         // Add some dynamic effects
         window.addEventListener('scroll', () => {
